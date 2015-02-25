@@ -1,0 +1,22 @@
+{
+  "name": "ShippingHistory",
+  "version": "1.0.0",
+  "description": "Keep track of shipping history.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rBurgett/ShippingHistory.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rBurgett/ShippingHistory/issues"
+  },
+  "homepage": "https://github.com/rBurgett/ShippingHistory",
+  "dependencies": {
+    "express": "^4.12.0"
+  }
+}
