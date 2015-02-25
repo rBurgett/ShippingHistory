@@ -6,6 +6,7 @@ app.engine('hbs', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'hbs');
 
 app.use(express.static('public'));
+app.use(express.static('bower_components'));
 
 //app.get('/', function(req, res) {
 //    res.render('home');
