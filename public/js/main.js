@@ -10,7 +10,8 @@ require.config({
         underscore: 'underscore/underscore',
         'backbone.marionette': 'backbone.marionette/lib/backbone.marionette',
         'backbone.wreqr': 'backbone.wreqr/lib/backbone.wreqr',
-        'backbone.babysitter': 'backbone.babysitter/lib/backbone.babysitter'
+        'backbone.babysitter': 'backbone.babysitter/lib/backbone.babysitter',
+        'handlebars': 'handlebars/handlebars.amd'
     },
 
     shim: {
@@ -32,8 +33,6 @@ define([
 function(Marionette, HeaderView, headerTemplate) {
     'use strict';
 
-    console.log(headerTemplate);
-
     var app = new Marionette.Application();
 
     app.addRegions({
@@ -45,8 +44,8 @@ function(Marionette, HeaderView, headerTemplate) {
 
     app.on('start', function() {
         var headerView = new HeaderView();
-     /*   app.headerRegion.show(headerView);
-        var bodyView = new BodyView();
+        app.headerRegion.show(headerView);
+    /*    var bodyView = new BodyView();
         app.bodyRegion.show(bodyView);
         var loadingView = new LoadingView();
         app.loadingRegion.show(loadingView);
