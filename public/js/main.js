@@ -26,7 +26,29 @@ require.config({
 define([
     'backbone.marionette', 'jquery', 'backbone', 'underscore','backbone.wreqr','backbone.babysitter'
 ],
-function(Marionette) {
+function(Marionette, HeaderView, BodyView, LoadingView, FooterView) {
     'use strict';
+
+    var app = new Marionette.Application();
+
+    app.addRegions({
+        headerRegion: '.headerRegion',
+        bodyRegion: '.bodyRegion',
+        loadingRegion: '.loadingRegion',
+        footerRegion: '.footerRegion'
+    });
+
+    app.on('start', function() {
+        var headerView = new HeaderView();
+        app.headerRegion.show(headerView);
+        var bodyView = new BodyView();
+        app.bodyRegion.show(bodyView);
+        var loadingView = new LoadingView();
+        app.loadingRegion.show(loadingView);
+        var footerView = new FooterView();
+        app.footerRegion.show(footerView);
+    });
+
+    app.start();
 
 });
