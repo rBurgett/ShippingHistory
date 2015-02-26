@@ -4,6 +4,7 @@ require.config({
     baseUrl: '/',
 
     paths: {
+        text: 'requirejs-text/text',
         jquery: 'jquery/dist/jquery',
         backbone: 'backbone/backbone',
         underscore: 'underscore/underscore',
@@ -24,10 +25,14 @@ require.config({
 });
 
 define([
-    'backbone.marionette'
+    'backbone.marionette',
+    'js/views/HeaderView',
+    'text!/js/views/HeaderView.hbs'
 ],
-function(Marionette) {
+function(Marionette, HeaderView, headerTemplate) {
     'use strict';
+
+    console.log(headerTemplate);
 
     var app = new Marionette.Application();
 
@@ -40,13 +45,13 @@ function(Marionette) {
 
     app.on('start', function() {
         var headerView = new HeaderView();
-        app.headerRegion.show(headerView);
+     /*   app.headerRegion.show(headerView);
         var bodyView = new BodyView();
         app.bodyRegion.show(bodyView);
         var loadingView = new LoadingView();
         app.loadingRegion.show(loadingView);
         var footerView = new FooterView();
-        app.footerRegion.show(footerView);
+        app.footerRegion.show(footerView);*/
     });
 
     app.start();
