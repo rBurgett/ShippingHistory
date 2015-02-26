@@ -24,9 +24,9 @@ require.config({
 });
 
 define([
-    'backbone.marionette', 'jquery', 'backbone', 'underscore','backbone.wreqr','backbone.babysitter'
+    'backbone.marionette'
 ],
-function(Marionette, HeaderView, BodyView, LoadingView, FooterView) {
+function(Marionette) {
     'use strict';
 
     var app = new Marionette.Application();
