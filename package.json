@@ -11,12 +11,14 @@
     "url": "https://github.com/rBurgett/ShippingHistory.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "",
   "bugs": {
     "url": "https://github.com/rBurgett/ShippingHistory/issues"
   },
   "homepage": "https://github.com/rBurgett/ShippingHistory",
   "dependencies": {
-    "express": "^4.12.0"
+    "csv": "^0.4.1",
+    "express": "^4.12.0",
+    "lodash": "^3.3.1"
   }
 }
