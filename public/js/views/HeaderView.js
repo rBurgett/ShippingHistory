@@ -6,7 +6,7 @@ define([
     'underscore',
     'jquery',
     'handlebars',
-    'text!/js/views/HeaderView.hbs'
+    'text!views/HeaderView.hbs'
 
 ], function(Backbone, Marionette, _, $, Handlebars, headerTemplate) {
     'use strict';

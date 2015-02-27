@@ -6,9 +6,10 @@ define([
     'underscore',
     'jquery',
     'handlebars',
-    'text!/js/views/BodyView.hbs'
+    'text!views/BodyView.hbs',
+    'views/SearchView'
 
-], function(Backbone, Marionette, _, $, Handlebars, bodyTemplate) {
+], function(Backbone, Marionette, _, $, Handlebars, bodyTemplate, SearchView) {
     'use strict';
 
     var BodyView = Marionette.LayoutView.extend({
@@ -22,6 +23,10 @@ define([
         },
         initialize: function() {
 
+        },
+        onRender: function() {
+            var searchView = new SearchView();
+            this.searchRegion.show(searchView);
         }
     });
 
