@@ -44,7 +44,6 @@ function(Marionette, bootstrap, HeaderView, headerTemplate) {
     app.addRegions({
         headerRegion: '.headerRegion',
         bodyRegion: '.bodyRegion',
-        loadingRegion: '.loadingRegion',
         footerRegion: '.footerRegion'
     });
 
