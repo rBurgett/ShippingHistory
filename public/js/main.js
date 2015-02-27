@@ -69,10 +69,6 @@ function(Marionette, bootstrap, HeaderView, BodyView) {
         var bodyView = new BodyView();
         app.bodyRegion.show(bodyView);
 
-    /*    var loadingView = new LoadingView();
-        app.loadingRegion.show(loadingView);
-        var footerView = new FooterView();
-        app.footerRegion.show(footerView);*/
     });
 
     app.start();
