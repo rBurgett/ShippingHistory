@@ -25,8 +25,23 @@ define([
 
         },
         onRender: function() {
-            var searchView = new SearchView();
+            var searchView = new SearchView({
+                model: new Backbone.Model({
+                    defaults: {
+                        value: '',
+                        field: ''
+                    }
+                })
+            });
             this.searchRegion.show(searchView);
+            searchView.on({
+                searchData: function(options) {
+                    console.log('Search for ' + options.field + ' containing "' + options.term + '".');
+                },
+                closeSearch: function() {
+                    console.log('Search has been closed!');
+                }
+            });
         }
     });
 

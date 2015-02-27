@@ -1,0 +1,16 @@
+<div class="input-group input-group-sm">
+    <input type="text" class="form-control" value="{{value}}">
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Search by  <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+            <li class="js-searchData js-searchContact"><a href="#">Contact Name</a></li>
+            <li class="js-searchData js-searchCompany"><a href="#">Company Name</a></li>
+            <li class="js-searchData js-searchCity"><a href="#">City</a></li>
+            <li class="js-searchData js-searchOrder"><a href="#">Order No.</a></li>
+            <li class="js-searchData js-searchReference"><a href="#">Customer Ref.</a></li>
+        </ul>
+    </div>
+</div>
+<div class="js-searchMessageContainer" style="display:none;">
+    <p><em>Results for "{{field}}" containing "{{value}}".</em> <a href="#" class="js-closeSearch"><span class="glyphicon glyphicon-remove text-danger"></span></a></p>
+</div>

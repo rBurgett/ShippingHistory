@@ -1,0 +1,14 @@
+html {
+    height: 100%;
+}
+body {
+    padding-top: 50px;
+    height: 100%;
+}
+.left-body-column {
+    padding-top: 15px;
+    border-right-style: solid;
+    border-right-color: #EEEEEE;
+    border-right-width: 1px;
+    height: 610px;
+}

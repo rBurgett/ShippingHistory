@@ -12,18 +12,60 @@ define([
     'use strict';
 
     var SearchView = Marionette.ItemView.extend({
-        template: function(data) {
-            return Handlebars.default.compile(searchTemplate)(data);
+        template: function(model) {
+            return Handlebars.default.compile(searchTemplate)(model);
         },
         events: {
-            'click .js-search' : 'searchData'
+            'click .js-searchData' : 'searchData',
+            'click .js-closeSearch' : 'closeSearch'
         },
         searchData: function(e) {
             e.preventDefault();
-            this.trigger('searchData');
+            var target = $(e.currentTarget);
+            var searchTerm = this.$('input').val();
+            var field;
+
+            if (!searchTerm) {
+                return;
+            }
+
+            if (target.hasClass('js-searchContact')) {
+                field = 'contact';
+            } else if (target.hasClass('js-searchCompany')) {
+                field = 'company';
+            } else if (target.hasClass('js-searchCity')) {
+                field = 'city';
+            } else if (target.hasClass('js-searchOrder')) {
+                field = 'order';
+            } else if (target.hasClass('js-searchReference')) {
+                field = 'reference';
+            }
+
+            this.model.set({
+                value: searchTerm,
+                field: field
+            });
+            this.$('.js-searchMessageContainer').show();
+
+            this.trigger('searchData', {
+                term: searchTerm,
+                field: field
+            });
+        },
+        closeSearch: function(e) {
+            e.preventDefault();
+            this.model.clear();
+            this.$('.js-searchMessageContainer').hide();
+            this.trigger('closeSearch');
         },
         initialize: function() {
 
+            this.model.parentView = this;
+            this.model.on({
+                'change' : function() {
+                    this.parentView.render();
+                }
+            });
         }
     });
 
