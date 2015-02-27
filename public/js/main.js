@@ -1,18 +1,18 @@
 /*global require, define, console*/
 
 require.config({
-    baseUrl: '/',
+    baseUrl: 'js',
 
     paths: {
-        text: 'requirejs-text/text',
-        jquery: 'jquery/dist/jquery',
-        backbone: 'backbone/backbone',
-        underscore: 'underscore/underscore',
-        'backbone.marionette': 'backbone.marionette/lib/backbone.marionette',
-        'backbone.wreqr': 'backbone.wreqr/lib/backbone.wreqr',
-        'backbone.babysitter': 'backbone.babysitter/lib/backbone.babysitter',
-        'handlebars': 'handlebars/handlebars.amd',
-        'bootstrap': 'js/bootstrap'
+        text: 'bower/requirejs-text/text',
+        jquery: 'bower/jquery/dist/jquery',
+        backbone: 'bower/backbone/backbone',
+        underscore: 'bower/underscore/underscore',
+        'backbone.marionette': 'bower/backbone.marionette/lib/backbone.marionette',
+        'backbone.wreqr': 'bower/backbone.wreqr/lib/backbone.wreqr',
+        'backbone.babysitter': 'bower/backbone.babysitter/lib/backbone.babysitter',
+        'handlebars': 'bower/handlebars/handlebars.amd',
+        'bootstrap': 'bootstrap'
     },
 
     shim: {
@@ -33,8 +33,8 @@ require.config({
 define([
     'backbone.marionette',
     'bootstrap',
-    'js/views/HeaderView',
-    'text!/js/views/HeaderView.hbs'
+    'views/HeaderView',
+    'text!views/HeaderView.hbs'
 ],
 function(Marionette, bootstrap, HeaderView, headerTemplate) {
     'use strict';
