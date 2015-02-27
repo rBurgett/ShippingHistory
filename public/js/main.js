@@ -11,7 +11,8 @@ require.config({
         'backbone.marionette': 'backbone.marionette/lib/backbone.marionette',
         'backbone.wreqr': 'backbone.wreqr/lib/backbone.wreqr',
         'backbone.babysitter': 'backbone.babysitter/lib/backbone.babysitter',
-        'handlebars': 'handlebars/handlebars.amd'
+        'handlebars': 'handlebars/handlebars.amd',
+        'bootstrap': 'js/bootstrap'
     },
 
     shim: {
@@ -20,17 +21,22 @@ require.config({
                 'jquery',
                 'underscore'
             ]
-
+        },
+        bootstrap: {
+            deps: [
+                'jquery'
+            ]
         }
     }
 });
 
 define([
     'backbone.marionette',
+    'bootstrap',
     'js/views/HeaderView',
     'text!/js/views/HeaderView.hbs'
 ],
-function(Marionette, HeaderView, headerTemplate) {
+function(Marionette, bootstrap, HeaderView, headerTemplate) {
     'use strict';
 
     var app = new Marionette.Application();
@@ -45,6 +51,22 @@ function(Marionette, HeaderView, headerTemplate) {
     app.on('start', function() {
         var headerView = new HeaderView();
         app.headerRegion.show(headerView);
+
+        headerView.on({
+            updateData: function() {
+                console.log('updateData event fired!');
+            },
+            exportData: function() {
+                console.log('exportData event fired!');
+            },
+            importData: function() {
+                console.log('importData event fired!');
+            },
+            aboutShippingHistory: function() {
+                console.log('aboutShippingHistory event fired!');
+            }
+        });
+
     /*    var bodyView = new BodyView();
         app.bodyRegion.show(bodyView);
         var loadingView = new LoadingView();
