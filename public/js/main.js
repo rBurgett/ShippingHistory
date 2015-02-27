@@ -34,9 +34,9 @@ define([
     'backbone.marionette',
     'bootstrap',
     'views/HeaderView',
-    'text!views/HeaderView.hbs'
+    'views/BodyView'
 ],
-function(Marionette, bootstrap, HeaderView, headerTemplate) {
+function(Marionette, bootstrap, HeaderView, BodyView) {
     'use strict';
 
     var app = new Marionette.Application();
@@ -66,9 +66,10 @@ function(Marionette, bootstrap, HeaderView, headerTemplate) {
             }
         });
 
-    /*    var bodyView = new BodyView();
+        var bodyView = new BodyView();
         app.bodyRegion.show(bodyView);
-        var loadingView = new LoadingView();
+
+    /*    var loadingView = new LoadingView();
         app.loadingRegion.show(loadingView);
         var footerView = new FooterView();
         app.footerRegion.show(footerView);*/
