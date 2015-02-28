@@ -54,7 +54,6 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     'use strict';
-     console.log('Connected!');
 });
 
 /*************************Express Server************************/
@@ -91,6 +90,16 @@ var server = app.listen(3000, function() {
     var port = server.address().port;
     console.log('App listening at http://localhost:%s', port);
 });
+
+/*Shipment.find().exec(function(err, shipments) {
+    'use strict';
+    console.log(shipments);
+    _.each(shipments, function(shipment) {
+        Shipment.remove({_id: shipment._id}, function(err) {
+            if (err) {console.error(err);}
+        });
+    });
+});*/
 
 /*********************CSV File Reader*******************************/
 /*fs.readFile('./Shipping_History.csv', 'utf-8', function(err, data) {
