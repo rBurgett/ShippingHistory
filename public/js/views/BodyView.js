@@ -7,9 +7,10 @@ define([
     'jquery',
     'handlebars',
     'text!views/BodyView.hbs',
-    'views/SearchView'
+    'views/SearchView',
+    'views/ShipmentsView'
 
-], function(Backbone, Marionette, _, $, Handlebars, bodyTemplate, SearchView) {
+], function(Backbone, Marionette, _, $, Handlebars, bodyTemplate, SearchView, ShipmentsView) {
     'use strict';
 
     var BodyView = Marionette.LayoutView.extend({
@@ -42,6 +43,23 @@ define([
                     console.log('Search has been closed!');
                 }
             });
+
+            var shipmentsView = new ShipmentsView({
+                collection: new ShipmentsView.ShipmentCollection()
+            });
+
+            $.ajax({
+                url: "shipments",
+                type: "GET",
+        //        data: { id : menuId },
+        //        dataType: "html"
+            }).done(function(data) {
+                _.each(data, function(item) {
+                    shipmentsView.collection.add(item);
+                });
+            });
+
+            this.shipmentsRegion.show(shipmentsView);
         }
     });
 
