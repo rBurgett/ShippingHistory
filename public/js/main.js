@@ -34,10 +34,39 @@ define([
     'backbone.marionette',
     'bootstrap',
     'views/HeaderView',
-    'views/BodyView'
+    'views/BodyView',
+    'handlebars'
 ],
-function(Marionette, bootstrap, HeaderView, BodyView) {
+function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
     'use strict';
+
+    Handlebars.default.registerHelper("phoneFormat", function(phoneNumber) {
+        phoneNumber = phoneNumber.toString();
+        return "(" + phoneNumber.substr(0,3) + ") " + phoneNumber.substr(3,3) + "-" + phoneNumber.substr(6,4);
+    });
+    Handlebars.default.registerHelper("deliveryDateFormat", function(origDate) {
+        var stringDate = origDate.toString();
+        var y = Number(stringDate.substr(0,4));
+        var m = Number(stringDate.substr(4,2));
+        var d = Number(stringDate.substr(6,2));
+        return m + '/' + d + '/' + y;
+    });
+    Handlebars.default.registerHelper("serviceFormat", function(service) {
+        switch(service) {
+            case 92:
+                return 'Ground';
+            case 1:
+                return 'Priority Overnight';
+        }
+        return service;
+    });
+    Handlebars.default.registerHelper("emailNotFormat", function(notification) {
+        if (notification === 'Y') {
+            return '<span class="glyphicon glyphicon-ok"></span>';
+        } else {
+            return ' ';
+        }
+    });
 
     var app = new Marionette.Application();
 

@@ -1,4 +1,151 @@
 <h3>Shipment Details</h3>
 {{#if trackingNumber}}
-    <p>I am looking at details for {{trackingNumber}}</p>
+    <div class="row">
+        <div class="col-lg-5 col-md-6">
+            <div class="well well-sm">
+                <h4>Recipient:</h4>
+                <p>{{#if contactName}}<strong>{{contactName}}</strong><br>{{/if}}
+                    {{#if companyName}}<strong>{{companyName}}</strong><br>{{/if}}
+                    {{address1}}<br>
+                    {{#if address2}}{{address2}}<br>{{/if}}
+                    {{city}}, {{state}}  {{zip}}<br>
+                    {{#if phone}}{{phoneFormat phone}}{{/if}}
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="well well-sm">
+                <div class="row">
+                <div class="col-lg-5 col-md-5">
+                    <strong>Tracking Number: </strong>
+                </div>
+                <div class="col-lg-7 col-md-7">
+                    <a href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber={{trackingNumber}}">{{trackingNumber}}</a>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <strong>Ship Date: </strong>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        {{shipDate}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <strong>Service Type: </strong>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        {{serviceFormat serviceType}}
+                    </div>
+                </div>
+                <!--div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <strong>Estimated Delivery: </strong>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        {{deliveryDateFormat deliveryDate}}
+                    </div>
+                </div-->
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <strong>Weight: </strong>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        {{weight}} lbs
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <strong>Dimensions: </strong>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        {{l}}x{{w}}x{{h}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <strong>Declared Value: </strong>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        ${{declaredValue}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <strong>Order Number: </strong>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        {{poNumber}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <strong>Cust. Reference: </strong>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        {{customerReference}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <strong>Net Cost: </strong>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        ${{netCost}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-11 col-md-12">
+            <div class="well well-sm">
+                <h4>Email Notifications</h4>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Email Address</th>
+                        <th class="text-center">Shipment</th>
+                        <th class="text-center">Tendered</th>
+                        <th class="text-center">Exception</th>
+                        <th class="text-center">Delivery</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#if recEmail}}
+                        <tr>
+                            <td>{{recEmail}}</td>
+                            <td class="text-center">{{{emailNotFormat recEmailS}}}</td>
+                            <td class="text-center">{{{emailNotFormat recEmailT}}}</td>
+                            <td class="text-center">{{{emailNotFormat recEmailE}}}</td>
+                            <td class="text-center">{{{emailNotFormat recEmailD}}}</td>
+                        </tr>
+                    {{/if}}
+                    {{#if otherEmail1}}
+                        <tr>
+                            <td>{{otherEmail1}}</td>
+                            <td class="text-center">{{{emailNotFormat otherEmail1S}}}</td>
+                            <td class="text-center">{{{emailNotFormat otherEmail1T}}}</td>
+                            <td class="text-center">{{{emailNotFormat otherEmail1E}}}</td>
+                            <td class="text-center">{{{emailNotFormat otherEmail1D}}}</td>
+                        </tr>
+                    {{/if}}
+                    {{#if otherEmail2}}
+                        <tr>
+                            <td>{{otherEmail2}}</td>
+                            <td class="text-center">{{{emailNotFormat otherEmail2S}}}</td>
+                            <td class="text-center">{{{emailNotFormat otherEmail2T}}}</td>
+                            <td class="text-center">{{{emailNotFormat otherEmail2E}}}</td>
+                            <td class="text-center">{{{emailNotFormat otherEmail2D}}}</td>
+                        </tr>
+                    {{/if}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{{else}}
+    <p>Please select a shipment from the left.</p>
 {{/if}}
