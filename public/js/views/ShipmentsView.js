@@ -29,7 +29,8 @@ define([
         events: {
             'click': 'clicked'
         },
-        clicked: function() {
+        clicked: function(e) {
+            e.preventDefault();
             this.trigger('loadShipment');
         },
         initialize: function() {
