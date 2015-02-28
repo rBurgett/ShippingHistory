@@ -27,7 +27,10 @@ define([
             return Handlebars.default.compile(shipmentsItemViewTemplate)(model);
         },
         events: {
-
+            'click': 'clicked'
+        },
+        clicked: function() {
+            this.trigger('loadShipment');
         },
         initialize: function() {
 
@@ -51,7 +54,13 @@ define([
 
         },
         initialize: function() {
-
+            var parent = this;
+            this.trigger('loadShipment');
+            this.on({
+                'childview:loadShipment' : function(item) {
+                    parent.trigger('loadShipment', item.model);
+                }
+            });
         }
     });
 

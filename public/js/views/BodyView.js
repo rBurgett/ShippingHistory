@@ -8,9 +8,11 @@ define([
     'handlebars',
     'text!views/BodyView.hbs',
     'views/SearchView',
-    'views/ShipmentsView'
+    'views/ShipmentsView',
+    'views/ShipmentDetailView',
+    'models/ShipmentModel'
 
-], function(Backbone, Marionette, _, $, Handlebars, bodyTemplate, SearchView, ShipmentsView) {
+], function(Backbone, Marionette, _, $, Handlebars, bodyTemplate, SearchView, ShipmentsView, ShipmentDetailView, ShipmentModel) {
     'use strict';
 
     var BodyView = Marionette.LayoutView.extend({
@@ -44,8 +46,20 @@ define([
                 }
             });
 
+            var shipmentDetailView = new ShipmentDetailView({
+                model: new ShipmentDetailView.ShipmentModel()
+            });
+
+            this.shipmentDetailRegion.show(shipmentDetailView);
+
             var shipmentsView = new ShipmentsView({
                 collection: new ShipmentsView.ShipmentCollection()
+            });
+            shipmentsView.on({
+                loadShipment: function(model) {
+//                    console.log(model);
+                    shipmentDetailView.setModel(model);
+                }
             });
 
             $.ajax({
