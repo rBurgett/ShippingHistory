@@ -4,6 +4,7 @@ var express = require('express'),
     exphbs = require('express-handlebars'),
     mongoose = require('mongoose'),
     fs = require('fs'),
+    os = require('os'),
     csv = require('csv'),
     _ = require('lodash'),
     app = express();
@@ -93,7 +94,6 @@ var server = app.listen(3000, function() {
 
 /*Shipment.find().exec(function(err, shipments) {
     'use strict';
-    console.log(shipments);
     _.each(shipments, function(shipment) {
         Shipment.remove({_id: shipment._id}, function(err) {
             if (err) {console.error(err);}
@@ -102,24 +102,31 @@ var server = app.listen(3000, function() {
 });*/
 
 /*********************CSV File Reader*******************************/
-/*fs.readFile('./Shipping_History.csv', 'utf-8', function(err, data) {
+
+var updateShipmentDB = function() {
     'use strict';
-    if (err) {throw err;}
-    csv.parse(data, {columns: true}, function(err, shipments){
-        var afterImport = _.after(shipments.length, function() {
-            Shipment.find(function(err, shipments) {
-                if(err) {console.error(err)}
-//                console.log(shipments);
+    fs.readFile('./Shipping_History.csv', 'utf-8', function(err, data) {
+        if (err) {throw err;}
+        csv.parse(data, {columns: true}, function(err, shipments){
+            var afterImport = _.after(shipments.length, function() {
+
+                var text = 'trackingNumber,shipDate,deliveryDate,recipientID,contactName,companyName,address1,address2,city,state,zip,phone,recEmail,recEmailS,recEmailT,recEmailE,recEmailD,otherEmail1,otherEmail1S,otherEmail1T,otherEmail1E,otherEmail1D,otherEmail2,otherEmail2S,otherEmail2T,otherEmail2E,otherEmail2D,weight,serviceType,l,w,h,declaredValue,netCost,poNumber,customerReference' + os.EOL;
+
+                fs.writeFile('Shipping_History.csv', text, function (err) {
+                    if (err) {throw err;}
+                });
+
+            });
+            _.each(shipments, function(shipment) {
+                var record = new Shipment(shipment);
+                record.save(function(err) {
+                    if(err) {console.log(err);}
+                    else {
+                        afterImport();
+                    }
+                });
             });
         });
-        for (var i = 0; i < shipments.length; i++) {
-            var shipment = new Shipment(shipments[i]);
-            shipment.save(function(err) {
-                if(err) {console.log(err);}
-                else {
-                    afterImport();
-                }
-           });
-        }
     });
-});*/
+};
+updateShipmentDB();
