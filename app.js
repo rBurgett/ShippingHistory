@@ -53,6 +53,7 @@ var Shipment = mongoose.model('Shipment', shipmentSchema);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
+    'use strict';
      console.log('Connected!');
 });
 
@@ -65,7 +66,13 @@ app.use(express.static('bower_components'));
 
 app.get('/shipments', function(req, res) {
     'use strict';
-    if(req.query.q) {
+    if (req.query.term) {
+        var q = req.query.q || 20;
+        Shipment.find().where(req.query.field).equals(new RegExp(req.query.term, 'i')).limit(q).exec(function(err, shipments) {
+            if(err) {res.send(err);}
+            res.send(shipments);
+        });
+    } else if(req.query.q) {
         Shipment.find().limit(req.query.q).exec(function(err, shipments) {
             if(err) {res.send(err);}
             res.send(shipments);
