@@ -63,18 +63,13 @@ define([
             });
 
             var loadingView = new LoadingView();
-            this.shipmentDetailRegion.show(loadingView);
+            this.shipmentsRegion.show(loadingView);
 
             var parent = this;
-            $.ajax({
-                url: "shipments",
-                type: "GET"
-        //        data: { id : menuId },
-        //        dataType: "html"
-            }).done(function(data) {
-                _.each(data, function(item) {
-                    shipmentsView.collection.add(item);
-                });
+
+            shipmentsView.load({
+                q: 20
+            }, function() {
                 parent.shipmentsRegion.show(shipmentsView);
             });
         }

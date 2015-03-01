@@ -51,8 +51,22 @@ define([
         collectionChanged: function() {
             this.render();
         },
-        events: {
-
+        qp: '',
+        load: function(queryParams, callback) {
+            this.qp = queryParams;
+            var parent = this;
+            $.ajax({
+                url: "shipments",
+                type: "GET",
+                data: parent.qp
+            }).done(function(data) {
+                _.each(data, function(item) {
+                    parent.collection.add(item);
+                });
+                if(callback) {
+                    callback();
+                }
+            });
         },
         initialize: function() {
             var parent = this;
