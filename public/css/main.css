@@ -15,8 +15,8 @@ body {
 .shipments-list {
     margin-top: 15px;
 }
-.list-group {
-    max-height: 535px;
+.shipments-container {
+    max-height:500px;
     overflow-y: auto;
 }
 .well p {
@@ -30,4 +30,37 @@ body {
     display: block;
     width: 40px;
     height: 40px;
+}
+
+@media(max-height:660px) {
+    .shipments-container {
+        max-height: 470px;
+    }
+    .left-body-column {
+        height: 570px;
+    }
+}
+@media(max-height:635px) {
+    .shipments-container {
+        max-height: 450px;
+    }
+    .left-body-column {
+        height: 550px;
+    }
+}
+@media(max-height:610px) {
+    .shipments-container {
+        max-height: 350px;
+    }
+    .left-body-column {
+        height: 450px;
+    }
+}
+@media(max-height:520px) {
+    .shipments-container {
+        max-height: 250px;
+    }
+    .left-body-column {
+        height: 350px;
+    }
 }
