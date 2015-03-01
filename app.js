@@ -8,7 +8,9 @@ var express = require('express'),
     csv = require('csv'),
     _ = require('lodash'),
     app = express();
+
 /***********MongoDB/Mongoose setup*************************************/
+
 mongoose.connect('mongodb://localhost/shippingHistoryDB');
 
 var shipmentSchema = mongoose.Schema({
@@ -57,7 +59,26 @@ db.once('open', function () {
     'use strict';
 });
 
+/*
+var clearDB = function() {
+    Shipment.find().exec(function(err, shipments) {
+        'use strict';
+        var afterDelete = _.after(shipments.length, function() {
+            console.log('ShippingHistoryDB cleared.');
+        });
+        _.each(shipments, function(shipment) {
+            Shipment.remove({_id: shipment._id}, function(err) {
+                if (err) {console.error(err);}
+                afterDelete();
+            });
+        });
+    });
+};
+clearDB();      //Clears the DB
+*/
+
 /*************************Express Server************************/
+
 app.engine('hbs', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'hbs');
 
@@ -91,15 +112,6 @@ var server = app.listen(3000, function() {
     var port = server.address().port;
     console.log('App listening at http://localhost:%s', port);
 });
-
-/*Shipment.find().exec(function(err, shipments) {
-    'use strict';
-    _.each(shipments, function(shipment) {
-        Shipment.remove({_id: shipment._id}, function(err) {
-            if (err) {console.error(err);}
-        });
-    });
-});*/
 
 /*********************CSV File Reader*******************************/
 
