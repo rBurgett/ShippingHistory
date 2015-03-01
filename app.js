@@ -103,6 +103,15 @@ app.get('/shipments', function(req, res) {
     }
 });
 
+app.post('/shipments/update', function(req, res) {
+    'use strict';
+
+    updateShipmentDB(function(data) {
+        res.send(data);
+    });
+
+});
+
 var server = app.listen(3000, function() {
     'use strict';
     var host = server.address().address;
@@ -112,29 +121,40 @@ var server = app.listen(3000, function() {
 
 /*********************CSV File Reader*******************************/
 
-var updateShipmentDB = function() {
+var updateShipmentDB = function(callback) {
     'use strict';
     fs.readFile('./Shipping_History.csv', 'utf-8', function(err, data) {
+ //       console.log('updating!');
         if (err) {throw err;}
         csv.parse(data, {columns: true}, function(err, shipments){
-            var afterImport = _.after(shipments.length, function() {
+            if (shipments.length > 0) {
+                var afterImport = _.after(shipments.length, function() {
 
-                var text = 'trackingNumber,shipDate,deliveryDate,recipientID,contactName,companyName,address1,address2,city,state,zip,phone,recEmail,recEmailS,recEmailT,recEmailE,recEmailD,otherEmail1,otherEmail1S,otherEmail1T,otherEmail1E,otherEmail1D,otherEmail2,otherEmail2S,otherEmail2T,otherEmail2E,otherEmail2D,weight,serviceType,l,w,h,declaredValue,netCost,poNumber,customerReference' + os.EOL;
+                    var text = 'trackingNumber,shipDate,deliveryDate,recipientID,contactName,companyName,address1,address2,city,state,zip,phone,recEmail,recEmailS,recEmailT,recEmailE,recEmailD,otherEmail1,otherEmail1S,otherEmail1T,otherEmail1E,otherEmail1D,otherEmail2,otherEmail2S,otherEmail2T,otherEmail2E,otherEmail2D,weight,serviceType,l,w,h,declaredValue,netCost,poNumber,customerReference' + os.EOL;
 
-                fs.writeFile('Shipping_History.csv', text, function (err) {
-                    if (err) {throw err;}
+                    fs.writeFile('Shipping_History.csv', text, function (err) {
+                        if (err) {
+                            console.log(err);
+                            callback(err);
+                        } else {
+                            callback('Database successfully updated!');
+                        }
+                    });
+
                 });
-
-            });
-            _.each(shipments, function(shipment) {
-                var record = new Shipment(shipment);
-                record.save(function(err) {
-                    if(err) {console.log(err);}
-                    else {
-                        afterImport();
-                    }
+                _.each(shipments, function(shipment) {
+                    var record = new Shipment(shipment);
+                    record.save(function(err) {
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            afterImport();
+                        }
+                    });
                 });
-            });
+            } else {
+                callback('The DB is already up-to-date.');
+            }
         });
     });
 };

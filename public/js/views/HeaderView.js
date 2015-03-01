@@ -23,7 +23,16 @@ define([
         },
         updateData: function(e) {
             e.preventDefault();
-            this.trigger('updateData');
+            var parent = this;
+
+            $.ajax({
+                url: "shipments/update",
+                type: "POST"
+            }).done(function(message) {
+                alert(message);
+                parent.trigger('updateData');
+            });
+
         },
         exportData: function(e) {
             e.preventDefault();
