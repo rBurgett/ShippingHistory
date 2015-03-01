@@ -1,7 +1,7 @@
 /*global require, console*/
 
 var express = require('express'),
-    exphbs = require('express-handlebars'),
+//    exphbs = require('express-handlebars'),
     mongoose = require('mongoose'),
     fs = require('fs'),
     os = require('os'),
@@ -79,8 +79,8 @@ clearDB();      //Clears the DB
 
 /*************************Express Server************************/
 
-app.engine('hbs', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'hbs');
+//app.engine('hbs', exphbs({defaultLayout: 'main'}));
+//app.set('view engine', 'hbs');
 
 app.use(express.static('public'));
 app.use(express.static('bower_components'));
