@@ -16,7 +16,7 @@ body {
     margin-top: 15px;
 }
 .list-group {
-    max-height:100%;
+    max-height: 535px;
     overflow-y: auto;
 }
 .well p {
