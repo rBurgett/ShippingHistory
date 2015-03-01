@@ -8,9 +8,10 @@ define([
     'handlebars',
     'text!views/ShipmentsView.hbs',
     'text!views/ShipmentsItemView.hbs',
-    'models/ShipmentModel'
+    'models/ShipmentModel',
+    'views/LoadingView'
 
-], function(Backbone, Marionette, _, $, Handlebars, shipmentsTemplate, shipmentsItemViewTemplate, ShipmentModel) {
+], function(Backbone, Marionette, _, $, Handlebars, shipmentsTemplate, shipmentsItemViewTemplate, ShipmentModel, LoadingView) {
     'use strict';
 
     var ShipmentCollection = Backbone.Collection.extend({
@@ -56,12 +57,18 @@ define([
         },
         qp: '',
         load: function(queryParams) {
+            this.$('.js-shipmentsItemsContainer').hide();
+            var loadingView = new LoadingView({
+                el: this.$('.js-loadingContainer')
+            }).render();
+            this.$('.js-loadingContainer').show();
             this.$('.js-noShipments').hide();
-            this.$('.js-loadMore').show();
+            this.$('.js-loadMoreContainer').hide();
             this.trigger('shipmentsLoading');
             this.collection.reset();
             if (queryParams) {this.qp = queryParams;}
             var parent = this;
+            console.log(this.qp);
             $.ajax({
                 url: "shipments",
                 type: "GET",
@@ -71,11 +78,13 @@ define([
                     _.each(data, function(item) {
                         parent.collection.add(item);
                     });
+                    loadingView.destroy();
+                    parent.$('.js-shipmentsItemsContainer').show();
+                    parent.$('.js-loadMoreContainer').show();
                     parent.trigger('shipmentsLoaded');
                 } else {
-                    console.log('none to display');
+                    loadingView.destroy();
                     parent.$('.js-noShipments').show();
-                    parent.$('.js-loadMore').hide();
                     parent.trigger('shipmentsLoaded');
                 }
 
@@ -84,12 +93,12 @@ define([
         loadMore: function(e) {
             e.preventDefault();
             console.log('loading more!');
-            if(!this.qp.q) {
+      /*      if(!this.qp.q) {
                 return;
-            } else {
+            } else {*/
                 this.qp.q = this.qp.q + 25;
                 this.load('');
-            }
+  //          }
         },
         initialize: function() {
             var parent = this;
