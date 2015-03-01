@@ -28,6 +28,11 @@ define([
 
         },
         onRender: function() {
+
+            var parent = this;
+
+            var loadingView = new LoadingView();
+
             var searchView = new SearchView({
                 model: new Backbone.Model({
                     defaults: {
@@ -55,22 +60,23 @@ define([
             var shipmentsView = new ShipmentsView({
                 collection: new ShipmentsView.ShipmentCollection()
             });
+
+            this.shipmentsRegion.show(shipmentsView);
+
             shipmentsView.on({
                 loadShipment: function(model) {
-//                    console.log(model);
                     shipmentDetailView.setModel(model);
+                },
+                shipmentsLoading: function() {
+
+                },
+                shipmentsLoaded: function() {
+
                 }
             });
 
-            var loadingView = new LoadingView();
-            this.shipmentsRegion.show(loadingView);
-
-            var parent = this;
-
             shipmentsView.load({
-                q: 20
-            }, function() {
-                parent.shipmentsRegion.show(shipmentsView);
+                q: 25
             });
         }
     });

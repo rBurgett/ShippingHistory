@@ -43,6 +43,9 @@ define([
         template: function(model) {
             return Handlebars.default.compile(shipmentsTemplate)(model);
         },
+        events: {
+            'click .js-loadMore': 'loadMore'
+        },
         childViewContainer: '.js-shipmentsItemsContainer',
         childView: ShipmentsItemView,
         collectionEvents: {
@@ -52,8 +55,10 @@ define([
             this.render();
         },
         qp: '',
-        load: function(queryParams, callback) {
-            this.qp = queryParams;
+        load: function(queryParams) {
+            this.trigger('shipmentsLoading');
+            this.collection.reset();
+            if (queryParams) {this.qp = queryParams;}
             var parent = this;
             $.ajax({
                 url: "shipments",
@@ -63,10 +68,18 @@ define([
                 _.each(data, function(item) {
                     parent.collection.add(item);
                 });
-                if(callback) {
-                    callback();
-                }
+                parent.trigger('shipmentsLoaded');
             });
+        },
+        loadMore: function(e) {
+            e.preventDefault();
+            console.log('loading more!');
+            if(!this.qp.q) {
+                return;
+            } else {
+                this.qp.q = this.qp.q + 25;
+                this.load('');
+            }
         },
         initialize: function() {
             var parent = this;
