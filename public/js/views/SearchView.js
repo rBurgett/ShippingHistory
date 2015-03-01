@@ -30,15 +30,15 @@ define([
             }
 
             if (target.hasClass('js-searchContact')) {
-                field = 'contact';
+                field = 'contactName';
             } else if (target.hasClass('js-searchCompany')) {
-                field = 'company';
+                field = 'companyName';
             } else if (target.hasClass('js-searchCity')) {
                 field = 'city';
             } else if (target.hasClass('js-searchOrder')) {
-                field = 'order';
+                field = 'poNumber';
             } else if (target.hasClass('js-searchReference')) {
-                field = 'reference';
+                field = 'customerReference';
             }
 
             this.model.set({

@@ -60,11 +60,13 @@ define([
             this.collection.reset();
             if (queryParams) {this.qp = queryParams;}
             var parent = this;
+            console.log(this.qp);
             $.ajax({
                 url: "shipments",
                 type: "GET",
                 data: parent.qp
             }).done(function(data) {
+                console.log(data);
                 _.each(data, function(item) {
                     parent.collection.add(item);
                 });

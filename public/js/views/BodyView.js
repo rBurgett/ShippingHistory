@@ -33,30 +33,6 @@ define([
 
             var loadingView = new LoadingView();
 
-            var searchView = new SearchView({
-                model: new Backbone.Model({
-                    defaults: {
-                        value: '',
-                        field: ''
-                    }
-                })
-            });
-            this.searchRegion.show(searchView);
-            searchView.on({
-                searchData: function(options) {
-                    console.log('Search for ' + options.field + ' containing "' + options.term + '".');
-                },
-                closeSearch: function() {
-                    console.log('Search has been closed!');
-                }
-            });
-
-            var shipmentDetailView = new ShipmentDetailView({
-                model: new ShipmentDetailView.ShipmentModel()
-            });
-
-            this.shipmentDetailRegion.show(shipmentDetailView);
-
             var shipmentsView = new ShipmentsView({
                 collection: new ShipmentsView.ShipmentCollection()
             });
@@ -78,6 +54,38 @@ define([
             shipmentsView.load({
                 q: 25
             });
+
+            var searchView = new SearchView({
+                model: new Backbone.Model({
+                    defaults: {
+                        value: '',
+                        field: ''
+                    }
+                })
+            });
+            this.searchRegion.show(searchView);
+            searchView.on({
+                searchData: function(options) {
+                    console.log('Search for ' + options.field + ' containing "' + options.term + '".');
+                    shipmentsView.load({
+                        q: 10,
+                        term: options.term,
+                        field: options.field
+                    });
+                },
+                closeSearch: function() {
+                    shipmentsView.load({
+                        q: 25
+                    });
+                }
+            });
+
+            var shipmentDetailView = new ShipmentDetailView({
+                model: new ShipmentDetailView.ShipmentModel()
+            });
+
+            this.shipmentDetailRegion.show(shipmentDetailView);
+
         }
     });
 
