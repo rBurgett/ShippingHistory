@@ -7,7 +7,7 @@ var express = require('express'),
     os = require('os'),
     csv = require('csv'),
     _ = require('lodash'),
-    cron = require('cron'),
+    CronJob = require('cron').CronJob,
     app = express();
 
 /***********MongoDB/Mongoose setup*************************************/
@@ -142,4 +142,14 @@ var updateShipmentDB = function() {
         });
     });
 };
-updateShipmentDB();
+
+/***********************DB update scheduler*********************/
+
+var scheduleUpdates = new CronJob({
+    cronTime: '00 00 00 * * *',
+    onTick: function() {
+        'use strict';
+        updateShipmentDB();
+    },
+    start: true
+});
