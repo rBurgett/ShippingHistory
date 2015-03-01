@@ -86,12 +86,12 @@ app.get('/shipments', function(req, res) {
     'use strict';
     if (req.query.term) {
         var q = req.query.q || 20;
-        Shipment.find().where(req.query.field).equals(new RegExp(req.query.term, 'i')).limit(q).exec(function(err, shipments) {
+        Shipment.find().where(req.query.field).equals(new RegExp(req.query.term, 'i')).limit(q).sort({trackingNumber: 1}).exec(function(err, shipments) {
             if(err) {res.send(err);}
             res.send(shipments);
         });
     } else if(req.query.q) {
-        Shipment.find().limit(req.query.q).exec(function(err, shipments) {
+        Shipment.find().limit(req.query.q).sort({trackingNumber: 1}).exec(function(err, shipments) {
             if(err) {res.send(err);}
             res.send(shipments);
         });
