@@ -10,9 +10,9 @@ define([
     'views/SearchView',
     'views/ShipmentsView',
     'views/ShipmentDetailView',
-    'models/ShipmentModel'
+    'views/LoadingView'
 
-], function(Backbone, Marionette, _, $, Handlebars, bodyTemplate, SearchView, ShipmentsView, ShipmentDetailView, ShipmentModel) {
+], function(Backbone, Marionette, _, $, Handlebars, bodyTemplate, SearchView, ShipmentsView, ShipmentDetailView, LoadingView) {
     'use strict';
 
     var BodyView = Marionette.LayoutView.extend({
@@ -62,18 +62,21 @@ define([
                 }
             });
 
+            var loadingView = new LoadingView();
+            this.shipmentDetailRegion.show(loadingView);
+
+            var parent = this;
             $.ajax({
                 url: "shipments",
-                type: "GET",
+                type: "GET"
         //        data: { id : menuId },
         //        dataType: "html"
             }).done(function(data) {
                 _.each(data, function(item) {
                     shipmentsView.collection.add(item);
                 });
+                parent.shipmentsRegion.show(shipmentsView);
             });
-
-            this.shipmentsRegion.show(shipmentsView);
         }
     });
 

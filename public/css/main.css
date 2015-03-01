@@ -25,3 +25,9 @@ body {
 .well h4 {
     margin-top: 0px;
 }
+.spinner{
+    margin-top: 200px;
+    display: block;
+    width: 40px;
+    height: 40px;
+}
