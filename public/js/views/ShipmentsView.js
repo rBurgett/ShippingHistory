@@ -56,21 +56,29 @@ define([
         },
         qp: '',
         load: function(queryParams) {
+            this.$('.js-noShipments').hide();
+            this.$('.js-loadMore').show();
             this.trigger('shipmentsLoading');
             this.collection.reset();
             if (queryParams) {this.qp = queryParams;}
             var parent = this;
-            console.log(this.qp);
             $.ajax({
                 url: "shipments",
                 type: "GET",
                 data: parent.qp
             }).done(function(data) {
-                console.log(data);
-                _.each(data, function(item) {
-                    parent.collection.add(item);
-                });
-                parent.trigger('shipmentsLoaded');
+                if(data.length > 0) {
+                    _.each(data, function(item) {
+                        parent.collection.add(item);
+                    });
+                    parent.trigger('shipmentsLoaded');
+                } else {
+                    console.log('none to display');
+                    parent.$('.js-noShipments').show();
+                    parent.$('.js-loadMore').hide();
+                    parent.trigger('shipmentsLoaded');
+                }
+
             });
         },
         loadMore: function(e) {
