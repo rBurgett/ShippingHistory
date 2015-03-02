@@ -27,7 +27,7 @@ define([
             var parent = this;
 
             $.ajax({
-                url: "shipments/update",
+                url: "updateDB",
                 type: "POST"
             }).done(function(message) {
                 var modalView = new ModalView({

@@ -93,7 +93,7 @@ app.get('/shipments', function(req, res) {
     }
 });
 
-app.post('/shipments/update', function(req, res) {
+app.post('/updateDB', function(req, res) {
     'use strict';
 
     updateShipmentDB(function(message) {
@@ -143,7 +143,7 @@ var updateShipmentDB = function(callback) {
                     });
                 });
             } else {
-                callback('The DB is already up-to-date.');
+                callback('The database is already up-to-date.');
             }
         });
     });
