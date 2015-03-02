@@ -44,13 +44,6 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
         phoneNumber = phoneNumber.toString();
         return "(" + phoneNumber.substr(0,3) + ") " + phoneNumber.substr(3,3) + "-" + phoneNumber.substr(6,4);
     });
-    Handlebars.default.registerHelper("deliveryDateFormat", function(origDate) {
-        var stringDate = origDate.toString();
-        var y = Number(stringDate.substr(0,4));
-        var m = Number(stringDate.substr(4,2));
-        var d = Number(stringDate.substr(6,2));
-        return m + '/' + d + '/' + y;
-    });
     Handlebars.default.registerHelper("serviceFormat", function(service) {
         switch(service) {
             case 92:
@@ -82,16 +75,16 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
 
         headerView.on({
             updateData: function() {
-                console.log('updateData event fired!');
+    //            console.log('updateData event fired!');
             },
             exportData: function() {
-                console.log('exportData event fired!');
+    //            console.log('exportData event fired!');
             },
             importData: function() {
-                console.log('importData event fired!');
+    //            console.log('importData event fired!');
             },
             aboutShippingHistory: function() {
-                console.log('aboutShippingHistory event fired!');
+    //            console.log('aboutShippingHistory event fired!');
             }
         });
 

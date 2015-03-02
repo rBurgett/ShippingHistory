@@ -39,7 +39,7 @@ define([
             e.preventDefault();
             this.destroy();
         },
-        initialize: function () {
+        initialize: function (options) {
 
             this.alert = function(message) {
                 this.model.set('message', message);
@@ -47,9 +47,10 @@ define([
             };
 
         },
-        onRender: function(options) {
+        onRender: function() {
 
             this.$('.modal').show();
+            this.$('.js-modalOk').focus();
         },
         onDestroy: function() {
             $('body').append('<div class="js-modalView"></div>');

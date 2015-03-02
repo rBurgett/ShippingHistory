@@ -6,14 +6,15 @@ define([
     'underscore',
     'jquery',
     'handlebars',
-    'text!views/HeaderView.hbs'
+    'text!views/HeaderView.hbs',
+    'views/ModalView'
 
-], function(Backbone, Marionette, _, $, Handlebars, headerTemplate) {
+], function(Backbone, Marionette, _, $, Handlebars, headerTemplate, ModalView) {
     'use strict';
 
     var HeaderView = Marionette.ItemView.extend({
         template: function(data) {
-            return Handlebars.default.compile(headerTemplate);
+            return Handlebars.default.compile(headerTemplate)(data);
         },
         events: {
             'click .js-update' : 'updateData',
@@ -29,10 +30,12 @@ define([
                 url: "shipments/update",
                 type: "POST"
             }).done(function(message) {
-                alert(message);
+                var modalView = new ModalView({
+                    model: new Backbone.Model(),
+                    size: 'small'
+                }).alert(message);
                 parent.trigger('updateData');
             });
-
         },
         exportData: function(e) {
             e.preventDefault();
