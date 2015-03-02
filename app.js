@@ -60,21 +60,11 @@ db.once('open', function () {
 });
 
 /*
-var clearDB = function() {
-    Shipment.find().exec(function(err, shipments) {
-        'use strict';
-        var afterDelete = _.after(shipments.length, function() {
-            console.log('ShippingHistoryDB cleared.');
-        });
-        _.each(shipments, function(shipment) {
-            Shipment.remove({_id: shipment._id}, function(err) {
-                if (err) {console.error(err);}
-                afterDelete();
-            });
-        });
-    });
-};
-clearDB();      //Clears the DB
+Shipment.remove({}, function(err) {
+    'use strict';
+    if(err) {console.log(err)}
+    console.log('Cleared!');
+});
 */
 
 /*************************Express Server************************/
@@ -106,8 +96,8 @@ app.get('/shipments', function(req, res) {
 app.post('/shipments/update', function(req, res) {
     'use strict';
 
-    updateShipmentDB(function(data) {
-        res.send(data);
+    updateShipmentDB(function(message) {
+        res.send(message);
     });
 
 });

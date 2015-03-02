@@ -70,12 +70,18 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
     });
 
     app.on('start', function() {
+
         var headerView = new HeaderView();
         app.headerRegion.show(headerView);
 
+        var bodyView = new BodyView();
+        app.bodyRegion.show(bodyView);
+
         headerView.on({
             updateData: function() {
-    //            console.log('updateData event fired!');
+                bodyView.shipmentsRegion.currentView.load({
+                    q: 25
+                });
             },
             exportData: function() {
     //            console.log('exportData event fired!');
@@ -87,9 +93,6 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
     //            console.log('aboutShippingHistory event fired!');
             }
         });
-
-        var bodyView = new BodyView();
-        app.bodyRegion.show(bodyView);
 
     });
 
