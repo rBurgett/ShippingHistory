@@ -102,6 +102,29 @@ app.post('/updateDB', function(req, res) {
 
 });
 
+app.post('/shipments/import', function(req, res) {
+    'use strict';
+
+    var shipments = JSON.parse(req.query.shipments);
+
+    var afterImport = _.after(shipments.length, function() {
+        req.send('Database import successful!');
+    });
+
+    _.each(shipments, function(shipment) {
+        var record = new Shipment(shipment);
+        record.save(function(err) {
+            if(err) {
+                console.log(err);
+                req.send(err);
+            } else {
+                afterImport();
+            }
+        });
+    });
+
+});
+
 var server = app.listen(3000, function() {
     'use strict';
     var host = server.address().address;
