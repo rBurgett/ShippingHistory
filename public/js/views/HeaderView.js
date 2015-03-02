@@ -43,7 +43,29 @@ define([
         },
         importData: function(e) {
             e.preventDefault();
-            this.trigger('importData');
+            var parent = this;
+
+            var readFile = new FileReader();
+            readFile.onload = function(file) {
+                var shipments = file.target.result;
+                $.ajax({
+                    url: "shipments/import",
+                    data: {
+                        shipments: shipments
+                    },
+                    type: "POST"
+                }).done(function(message) {
+                    var modalView = new ModalView({
+                        model: new Backbone.Model()
+                    }).alert(message);
+                    parent.trigger('importData');
+                });
+            };
+
+            $('.js-importShipmentsFile').on('change', function(e) {
+                readFile.readAsText(e.target.files[0]);
+            }).click();
+
         },
         aboutShippingHistory: function(e) {
             e.preventDefault();

@@ -87,7 +87,9 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
     //            console.log('exportData event fired!');
             },
             importData: function() {
-    //            console.log('importData event fired!');
+                bodyView.shipmentsRegion.currentView.load({
+                    q: 25
+                });
             },
             aboutShippingHistory: function() {
     //            console.log('aboutShippingHistory event fired!');
