@@ -68,7 +68,7 @@ define([
             this.collection.reset();
             if (queryParams) {this.qp = queryParams;}
             var parent = this;
-            console.log(this.qp);
+
             $.ajax({
                 url: "shipments",
                 type: "GET",
@@ -93,12 +93,8 @@ define([
         loadMore: function(e) {
             e.preventDefault();
             console.log('loading more!');
-      /*      if(!this.qp.q) {
-                return;
-            } else {*/
-                this.qp.q = this.qp.q + 25;
-                this.load('');
-  //          }
+            this.qp.q = this.qp.q + 25;
+            this.load('');
         },
         initialize: function() {
             var parent = this;

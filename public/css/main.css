@@ -32,6 +32,11 @@ body {
     height: 40px;
 }
 
+.modal{
+    margin-top: -146px;
+    top: 50%;
+}
+
 @media(max-height:660px) {
     .shipments-container {
         max-height: 470px;
