@@ -13,6 +13,7 @@
     "requirejs": "~2.1.16",
     "backbone.marionette": "~2.4.0",
     "handlebars": "~3.0.0",
-    "requirejs-text": "~2.0.14"
+    "requirejs-text": "~2.0.14",
+    "FileSaver": "https://github.com/eligrey/FileSaver.js.git"
   }
 }

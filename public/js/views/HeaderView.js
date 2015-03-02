@@ -7,9 +7,10 @@ define([
     'jquery',
     'handlebars',
     'text!views/HeaderView.hbs',
-    'views/ModalView'
+    'views/ModalView',
+    'fileSaver'
 
-], function(Backbone, Marionette, _, $, Handlebars, headerTemplate, ModalView) {
+], function(Backbone, Marionette, _, $, Handlebars, headerTemplate, ModalView, FileSaver) {
     'use strict';
 
     var HeaderView = Marionette.ItemView.extend({
@@ -39,7 +40,30 @@ define([
         },
         exportData: function(e) {
             e.preventDefault();
-            this.trigger('exportData');
+
+            var parent = this;
+
+            $.ajax({
+                url: "shipments",
+                type: "GET"
+            }).done(function(shipments) {
+                var fixedShipments = [];
+                var afterIdRemoved = _.after(shipments.length, function() {
+                    var shipmentsJSON = JSON.stringify(fixedShipments, null);
+                    var blob = new Blob([shipmentsJSON], {type: "data:text/json;charset=utf-8"});
+                    saveAs(blob, 'Shipping_History.json');
+                    parent.trigger('exportData');
+           //         console.log(fixedShipments);
+                });
+                _.each(shipments, function(shipment) {
+                    fixedShipments.push(_.omit(shipment, '_id'));
+                    afterIdRemoved();
+                });
+  /*              var shipmentsJSON = JSON.stringify(shipments, null);
+                var blob = new Blob([shipmentsJSON], {type: "data:text/json;charset=utf-8"});
+                saveAs(blob, 'Shipping_History.json');
+                parent.trigger('exportData'); */
+            });
         },
         importData: function(e) {
             e.preventDefault();
@@ -47,14 +71,12 @@ define([
 
             var readFile = new FileReader();
             readFile.onload = function(file) {
-                var shipments = file.target.result;
+                var shipments = escape(file.target.result);
                 $.ajax({
-                    url: "shipments/import",
-                    data: {
-                        shipments: shipments
-                    },
+                    url: "shipments/import?shipments=" + shipments,
                     type: "POST"
                 }).done(function(message) {
+                    console.log(message);
                     var modalView = new ModalView({
                         model: new Backbone.Model()
                     }).alert(message);

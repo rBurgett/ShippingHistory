@@ -108,7 +108,7 @@ app.post('/shipments/import', function(req, res) {
     var shipments = JSON.parse(req.query.shipments);
 
     var afterImport = _.after(shipments.length, function() {
-        req.send('Database import successful!');
+        res.send('Database import successful!');
     });
 
     _.each(shipments, function(shipment) {
@@ -116,7 +116,7 @@ app.post('/shipments/import', function(req, res) {
         record.save(function(err) {
             if(err) {
                 console.log(err);
-                req.send(err);
+                res.send(err);
             } else {
                 afterImport();
             }

@@ -92,7 +92,6 @@ define([
         },
         loadMore: function(e) {
             e.preventDefault();
-            console.log('loading more!');
             this.qp.q = this.qp.q + 25;
             this.load('');
         },

@@ -12,7 +12,8 @@ require.config({
         'backbone.wreqr': 'bower/backbone.wreqr/lib/backbone.wreqr',
         'backbone.babysitter': 'bower/backbone.babysitter/lib/backbone.babysitter',
         'handlebars': 'bower/handlebars/handlebars.amd',
-        'bootstrap': 'bootstrap'
+        'bootstrap': 'bootstrap',
+        'fileSaver': 'bower/FileSaver/FileSaver'
     },
 
     shim: {
