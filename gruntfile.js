@@ -23,8 +23,13 @@ module.exports = function(grunt) {
         },
         watch: {
             scripts: {
-                files: ['js/*.js'],
-                tasks: ['requirejs', 'uglify'],
+                files: [
+                    'public/js/main.js',
+                    'public/js/models/*.js',
+                    'public/js/views/*.js',
+                    'public/js/views/*.hbs'
+                ],
+                tasks: ['requirejs'],
                 options: {
                     spawn: false
                 }
