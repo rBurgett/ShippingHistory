@@ -33,8 +33,8 @@ define([
             }).done(function(message) {
                 var modalView = new ModalView({
                     model: new Backbone.Model(),
-                    size: 'large'
-                }).alert(message);
+                    size: 'small'
+                }).alert({bodyText: message});
                 parent.trigger('updateData');
             });
         },
@@ -79,7 +79,7 @@ define([
                     console.log(message);
                     var modalView = new ModalView({
                         model: new Backbone.Model()
-                    }).alert(message);
+                    }).alert({bodyText: message});
                     parent.trigger('importData');
                 });
             };
@@ -91,6 +91,13 @@ define([
         },
         aboutShippingHistory: function(e) {
             e.preventDefault();
+            var modalView = new ModalView({
+                model: new Backbone.Model(),
+                size: 'medium'
+            }).alert({
+                    headerText: 'About',
+                    bodyText: '<p>This application was written by <a href="http://ryanburgett.com">Ryan Burgett</a> to provide a means for individuals and small businesses to keep track of shipping history from FedEx Ship Manager. Anyone who has used the software knows that it does not keep track of or provide means of viewing shipping history. That is where this app comes in.</p><p>This is a Javascript application, written with Express.js and MongoDB on Node for the backend and Backbone with Marionette and Handlebars templating on the front-end.</p><p>Feel free to check out this project on <a href="https://github.com/rBurgett/ShippingHistory">GitHub</a>. Enjoy!</p>'
+                });
             this.trigger('aboutShippingHistory');
         },
         initialize: function() {

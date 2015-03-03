@@ -43,7 +43,8 @@ define([
             this.size = options.size || 'small';
 
             this.alert = function(message) {
-                this.model.set('message', message);
+                this.model.set('headerText', message.headerText || '');
+                this.model.set('bodyText', message.bodyText || '');
                 this.render();
             };
 
@@ -51,6 +52,7 @@ define([
         onRender: function() {
             if(this.size === 'medium') {
                 this.$('.modal-dialog').removeClass('modal-sm');
+                this.$('.modal').addClass('modal-higher');
             } else if(this.size === 'large') {
                 this.$('.modal-dialog').removeClass('modal-sm');
                 this.$('.modal-dialog').addClass('modal-lg');

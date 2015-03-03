@@ -36,6 +36,12 @@ body {
     margin-top: -146px;
     top: 50%;
 }
+.modal-higher{
+    top: 35%;
+}
+.modal-header h3{
+    margin: 0px;
+}
 
 .text-muted-white{
     color: #FFFFFF;
