@@ -37,6 +37,10 @@ body {
     top: 50%;
 }
 
+.text-muted-white{
+    color: #FFFFFF;
+}
+
 @media(max-height:660px) {
     .shipments-container {
         max-height: 470px;

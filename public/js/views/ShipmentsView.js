@@ -30,12 +30,26 @@ define([
         events: {
             'click': 'clicked'
         },
+        modelEvents: {
+            'change': 'modelChanged'
+        },
+        modelChanged: function() {
+            console.log('model changed');
+            this.render();
+        },
         clicked: function(e) {
             e.preventDefault();
             this.trigger('loadShipment');
+            this.trigger('setActive');
         },
-        initialize: function() {
-
+        onRender: function() {
+            if(this.model.attributes.isActive) {
+                $(this.el).addClass('active');
+                this.$('.text-muted').addClass('text-muted-white');
+            } else if($(this.el).hasClass('active')) {
+                $(this.el).removeClass('active');
+                this.$('.text-muted').removeClass('text-muted-white');
+            }
         }
     });
 
@@ -49,12 +63,6 @@ define([
         },
         childViewContainer: '.js-shipmentsItemsContainer',
         childView: ShipmentsItemView,
-        collectionEvents: {
-            'change': 'collectionChanged'
-        },
-        collectionChanged: function() {
-            this.render();
-        },
         qp: '',
         load: function(queryParams) {
             this.$('.js-shipmentsItemsContainer').hide();
@@ -75,13 +83,16 @@ define([
                 data: parent.qp
             }).done(function(data) {
                 if(data.length > 0) {
-                    _.each(data, function(item) {
-                        parent.collection.add(item);
+                    var afterData = _.after(data.length, function() {
+                        loadingView.destroy();
+                        parent.render();
+                        parent.trigger('shipmentsLoaded');
                     });
-                    loadingView.destroy();
-                    parent.$('.js-shipmentsItemsContainer').show();
-                    parent.$('.js-loadMoreContainer').show();
-                    parent.trigger('shipmentsLoaded');
+                    _.each(data, function(item) {
+                        item.isActive = false;
+                        parent.collection.add(item);
+                        afterData();
+                    });
                 } else {
                     loadingView.destroy();
                     parent.$('.js-noShipments').show();
@@ -99,8 +110,17 @@ define([
             var parent = this;
             this.trigger('loadShipment');
             this.on({
-                'childview:loadShipment' : function(item) {
-                    parent.trigger('loadShipment', item.model);
+                'childview:loadShipment' : function(view) {
+                    parent.trigger('loadShipment', view.model);
+                },
+                'childview:setActive' : function(view) {
+                    var setActive = _.after(parent.collection.models.length, function() {
+                        view.model.set({isActive: true});
+                    });
+                    _.each(parent.collection.models, function(model) {
+                        model.set({isActive: false});
+                        setActive();
+                    });
                 }
             });
         }
