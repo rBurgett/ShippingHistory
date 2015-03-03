@@ -1,21 +1,28 @@
 <div class="modal">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog {{#if small}}modal-sm{{/if}}{{#if large}}modal-lg{{/if}}">
         <div class="modal-content">
             {{#if headerText}}
                 <div class="modal-header">
                     <h3>{{headerText}}</h3>
                 </div>
-                <div class="modal-body">
-            {{else}}
-                <div class="modal-body">
-                <br>
             {{/if}}
-
+            <div class="modal-body">
+                {{#unless headerText}}
+                    <br>
+                {{/unless}}
                 <p>{{{bodyText}}}</p>
             </div>
-            <div class="modal-body">
-                <button type="button" class="btn btn-default center-block js-modalOk" style="display:block;">Ok</button>
-            </div>
+            {{#if alert}}
+                <div class="modal-body js-alertFooter">
+                    <button type="button" class="btn btn-default center-block js-modalOk" style="display:block;">Ok</button>
+                </div>
+            {{/if}}
+            {{#if confirm}}
+                <div class="modal-footer js-confirmFooter">
+                    <button type="button" class="btn btn-primary js-modalConfirm">Confirm</button>
+                    <button type="button" class="btn btn-default js-modalCancel">Cancel</button>
+                </div>
+            {{/if}}
         </div>
     </div>
 </div>

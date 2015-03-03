@@ -32,25 +32,45 @@ define([
         okPressed: function(e) {
     //        e.preventDefault();
             if(e.which === 13) {
+                this.trigger('ok');
                 this.destroy();
             }
         },
         okClicked: function(e) {
             e.preventDefault();
+            this.trigger('ok');
             this.destroy();
         },
         initialize: function (options) {
-            this.size = options.size || 'small';
+            var size = options.size;
+            var type = options.type || 'alert';
+            this.model.set('headerText', options.headerText || '');
+            this.model.set('bodyText', options.bodyText || '');
+       //     this.model.set('');
+      //      this.render();
 
-            this.alert = function(message) {
-                this.model.set('headerText', message.headerText || '');
-                this.model.set('bodyText', message.bodyText || '');
-                this.render();
-            };
+            console.log(type);
+
+            if(size === 'small') {
+                this.model.set('small', true);
+            } else if(size === 'large') {
+                this.model.set('large', true);
+            }
+
+            if (type === 'confirm') {
+                this.model.set('confirm', true);
+            } else {
+                this.model.set('alert', true);
+            }
+
+            console.log(this.model.attributes);
+
+            this.render();
 
         },
         onRender: function() {
-            if(this.size === 'medium') {
+
+            /*if(this.size === 'medium') {
                 this.$('.modal-dialog').removeClass('modal-sm');
                 this.$('.modal').addClass('modal-higher');
             } else if(this.size === 'large') {
@@ -58,8 +78,14 @@ define([
                 this.$('.modal-dialog').addClass('modal-lg');
             }
 
+            if(this.type === 'alert') {
+                this.$('.js-alertFooter').show();
+            } else if(this.type === 'confirm') {
+                this.$('.js-confirmFooter').show();
+            }*/
+
             this.$('.modal').show();
-            this.$('.js-modalOk').focus();
+     //       this.$('.js-modalOk').focus();
         },
         onDestroy: function() {
             $('body').append('<div class="js-modalView"></div>');
