@@ -51,6 +51,8 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
                 return 'Home';
             case 92:
                 return 'Ground';
+            case 49:
+                return '2 Day AM';
             case 1:
                 return 'Priority Overnight';
         }
