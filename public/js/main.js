@@ -47,6 +47,8 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
     });
     Handlebars.default.registerHelper("serviceFormat", function(service) {
         switch(service) {
+            case 90:
+                return 'Home';
             case 92:
                 return 'Ground';
             case 1:
