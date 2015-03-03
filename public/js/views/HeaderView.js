@@ -33,7 +33,7 @@ define([
             }).done(function(message) {
                 var modalView = new ModalView({
                     model: new Backbone.Model(),
-                    size: 'small'
+                    size: 'large'
                 }).alert(message);
                 parent.trigger('updateData');
             });

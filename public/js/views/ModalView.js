@@ -40,6 +40,7 @@ define([
             this.destroy();
         },
         initialize: function (options) {
+            this.size = options.size || 'small';
 
             this.alert = function(message) {
                 this.model.set('message', message);
@@ -48,6 +49,12 @@ define([
 
         },
         onRender: function() {
+            if(this.size === 'medium') {
+                this.$('.modal-dialog').removeClass('modal-sm');
+            } else if(this.size === 'large') {
+                this.$('.modal-dialog').removeClass('modal-sm');
+                this.$('.modal-dialog').addClass('modal-lg');
+            }
 
             this.$('.modal').show();
             this.$('.js-modalOk').focus();
