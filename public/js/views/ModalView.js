@@ -45,7 +45,7 @@ define([
                     }
                     break;
             }
-            
+
         },
         okClicked: function(e) {
             e.preventDefault();
@@ -86,6 +86,10 @@ define([
         onRender: function() {
 
             this.$('.modal').show();
+
+            var mt =  '-' + (180 + (this.$('.modal-dialog').height())) / 2 + 'px';
+            console.log(mt);
+            this.$('.modal-dialog').css('margin-top', mt);
 
             if(this.model.attributes.alert) {
                 this.$('.js-modalOk').focus();

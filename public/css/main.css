@@ -32,13 +32,10 @@ body {
     height: 40px;
 }
 
-.modal{
-    margin-top: -146px;
+.modal-dialog{
     top: 50%;
 }
-.modal-higher{
-    top: 35%;
-}
+
 .modal-header h3{
     margin: 0px;
 }
