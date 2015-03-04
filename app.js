@@ -178,7 +178,9 @@ var scheduleUpdates = new CronJob({
     cronTime: '00 00 00 * * *',
     onTick: function() {
         'use strict';
-        updateShipmentDB();
+        updateShipmentDB(function(message) {
+            return message;
+        });
     },
     start: true
 });
