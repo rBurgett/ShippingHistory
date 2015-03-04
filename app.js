@@ -107,20 +107,25 @@ app.post('/shipments/import', function(req, res) {
 
     var shipments = JSON.parse(req.query.shipments);
 
-    var afterImport = _.after(shipments.length, function() {
-        res.send('Database import successful!');
-    });
+    Shipment.remove({}, function(err) {
+        if(err) {console.log(err);}
 
-    _.each(shipments, function(shipment) {
-        var record = new Shipment(shipment);
-        record.save(function(err) {
-            if(err) {
-                console.log(err);
-                res.send(err);
-            } else {
-                afterImport();
-            }
+        var afterImport = _.after(shipments.length, function() {
+            res.send('Database import successful!');
         });
+
+        _.each(shipments, function(shipment) {
+            var record = new Shipment(shipment);
+            record.save(function(err) {
+                if(err) {
+                    console.log(err);
+                    res.send(err);
+                } else {
+                    afterImport();
+                }
+            });
+        });
+
     });
 
 });
