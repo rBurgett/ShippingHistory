@@ -102,7 +102,7 @@ app.post('/updateDB', function(req, res) {
 
 });
 
-app.post('/shipments/import', function(req, res) {
+app.put('/shipments', function(req, res) {
     'use strict';
 
     var shipments = JSON.parse(req.query.shipments);

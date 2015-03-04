@@ -79,8 +79,8 @@ define([
                     readFile.onload = function(file) {
                         var shipments = escape(file.target.result);
                         $.ajax({
-                            url: "shipments/import?shipments=" + shipments,
-                            type: "POST"
+                            url: "shipments?shipments=" + shipments,
+                            type: "PUT"
                         }).done(function(message) {
                             console.log(message);
                             var modalView = new ModalView({
