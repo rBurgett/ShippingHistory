@@ -34,15 +34,6 @@ define([
         keyPressed: function(e) {
 
             switch(e.which) {
-                case 13:
-                    if(this.model.attributes.alert) {
-                        this.trigger('ok');
-                        this.destroy();
-                    }
-                    if(this.model.attributes.confirm) {
-                        $(document.activeElement).click();
-                    }
-                    break;
                 case 37:        //left
                     if(this.model.attributes.confirm) {
                         this.$('.js-modalConfirm').focus();
@@ -54,6 +45,7 @@ define([
                     }
                     break;
             }
+            
         },
         okClicked: function(e) {
             e.preventDefault();
