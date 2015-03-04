@@ -67,27 +67,37 @@ define([
             e.preventDefault();
             var parent = this;
 
-            var readFile = new FileReader();
-            readFile.onload = function(file) {
-                var shipments = escape(file.target.result);
-                $.ajax({
-                    url: "shipments/import?shipments=" + shipments,
-                    type: "POST"
-                }).done(function(message) {
-                    console.log(message);
-                    var modalView = new ModalView({
-                        model: new Backbone.Model(),
-                        size: 'small',
-                        type: 'alert',
-                        bodyText: message
-                    });
-                    parent.trigger('importData');
-                });
-            };
+            var modalView = new ModalView({
+                model: new Backbone.Model(),
+                size: 'medium',
+                type: 'confirm',
+                headerText: 'Warning!',
+                bodyText: 'Any shipment records currently in the database will be removed and then replaced by those in the imported file. Do you wish to proceed?'
+            }).on({
+                confirm: function() {
+                    var readFile = new FileReader();
+                    readFile.onload = function(file) {
+                        var shipments = escape(file.target.result);
+                        $.ajax({
+                            url: "shipments/import?shipments=" + shipments,
+                            type: "POST"
+                        }).done(function(message) {
+                            console.log(message);
+                            var modalView = new ModalView({
+                                model: new Backbone.Model(),
+                                size: 'small',
+                                type: 'alert',
+                                bodyText: message
+                            });
+                            parent.trigger('importData');
+                        });
+                    };
 
-            $('.js-importShipmentsFile').on('change', function(e) {
-                readFile.readAsText(e.target.files[0]);
-            }).click();
+                    $('.js-importShipmentsFile').on('change', function(e) {
+                        readFile.readAsText(e.target.files[0]);
+                    }).click();
+                }
+            });
 
         },
         aboutShippingHistory: function(e) {
