@@ -61,10 +61,6 @@ define([
                     fixedShipments.push(_.omit(shipment, '_id'));
                     afterIdRemoved();
                 });
-  /*              var shipmentsJSON = JSON.stringify(shipments, null);
-                var blob = new Blob([shipmentsJSON], {type: "data:text/json;charset=utf-8"});
-                saveAs(blob, 'Shipping_History.json');
-                parent.trigger('exportData'); */
             });
         },
         importData: function(e) {

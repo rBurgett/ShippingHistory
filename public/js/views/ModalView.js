@@ -27,13 +27,32 @@ define([
         },
         events: {
             'click .js-modalOk' : 'okClicked',
-            'keypress' : 'okPressed'
+            'click .js-modalConfirm': 'confirmClicked',
+            'click .js-modalCancel': 'cancelClicked',
+            'keydown' : 'keyPressed'
         },
-        okPressed: function(e) {
-    //        e.preventDefault();
-            if(e.which === 13) {
-                this.trigger('ok');
-                this.destroy();
+        keyPressed: function(e) {
+
+            switch(e.which) {
+                case 13:
+                    if(this.model.attributes.alert) {
+                        this.trigger('ok');
+                        this.destroy();
+                    }
+                    if(this.model.attributes.confirm) {
+                        $(document.activeElement).click();
+                    }
+                    break;
+                case 37:        //left
+                    if(this.model.attributes.confirm) {
+                        this.$('.js-modalConfirm').focus();
+                    }
+                    break;
+                case 39:        //right
+                    if(this.model.attributes.confirm) {
+                        this.$('.js-modalCancel').focus();
+                    }
+                    break;
             }
         },
         okClicked: function(e) {
@@ -41,15 +60,21 @@ define([
             this.trigger('ok');
             this.destroy();
         },
+        confirmClicked: function(e) {
+            e.preventDefault();
+            this.trigger('confirm');
+            this.destroy();
+        },
+        cancelClicked: function(e) {
+            e.preventDefault();
+            this.trigger('cancel');
+            this.destroy();
+        },
         initialize: function (options) {
             var size = options.size;
             var type = options.type || 'alert';
             this.model.set('headerText', options.headerText || '');
             this.model.set('bodyText', options.bodyText || '');
-       //     this.model.set('');
-      //      this.render();
-
-            console.log(type);
 
             if(size === 'small') {
                 this.model.set('small', true);
@@ -63,29 +88,19 @@ define([
                 this.model.set('alert', true);
             }
 
-            console.log(this.model.attributes);
-
             this.render();
 
         },
         onRender: function() {
 
-            /*if(this.size === 'medium') {
-                this.$('.modal-dialog').removeClass('modal-sm');
-                this.$('.modal').addClass('modal-higher');
-            } else if(this.size === 'large') {
-                this.$('.modal-dialog').removeClass('modal-sm');
-                this.$('.modal-dialog').addClass('modal-lg');
+            this.$('.modal').show();
+
+            if(this.model.attributes.alert) {
+                this.$('.js-modalOk').focus();
+            } else if(this.model.attributes.confirm) {
+                this.$('.js-modalConfirm').focus();
             }
 
-            if(this.type === 'alert') {
-                this.$('.js-alertFooter').show();
-            } else if(this.type === 'confirm') {
-                this.$('.js-confirmFooter').show();
-            }*/
-
-            this.$('.modal').show();
-     //       this.$('.js-modalOk').focus();
         },
         onDestroy: function() {
             $('body').append('<div class="js-modalView"></div>');
