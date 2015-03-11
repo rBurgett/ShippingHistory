@@ -65,6 +65,9 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
             return ' ';
         }
     });
+    Handlebars.default.registerHelper("costFormat", function(costNum) {
+        return '$' + costNum.toFixed(2);
+    });
 
     var app = new Marionette.Application();
 
