@@ -51,10 +51,18 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
                 return 'Home';
             case 92:
                 return 'Ground';
+            case 20:
+                return 'Express Saver';
+            case 3:
+                return '2 Day';
             case 49:
                 return '2 Day AM';
+            case 5:
+                return 'Standard Overnight';
             case 1:
                 return 'Priority Overnight';
+            case 6:
+                return 'First Overnight';
         }
         return service;
     });
