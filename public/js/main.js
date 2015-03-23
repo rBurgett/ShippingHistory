@@ -76,6 +76,9 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
     Handlebars.default.registerHelper("costFormat", function(costNum) {
         return '$' + costNum.toFixed(2);
     });
+    Handlebars.default.registerHelper("valueFormat", function(valueNum) {
+        return '$' + valueNum.toFixed();
+    });
 
     var app = new Marionette.Application();
 
