@@ -25,6 +25,7 @@ module.exports = function(grunt) {
             scripts: {
                 files: [
                     'public/js/main.js',
+                    'public/js/router.js',
                     'public/js/models/*.js',
                     'public/js/views/*.js',
                     'public/js/views/*.hbs'
