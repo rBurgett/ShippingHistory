@@ -12,6 +12,7 @@ require.config({
         'backbone.wreqr': 'bower/backbone.wreqr/lib/backbone.wreqr',
         'backbone.babysitter': 'bower/backbone.babysitter/lib/backbone.babysitter',
         'handlebars': 'bower/handlebars/handlebars.amd',
+        'helpers': 'views/helpers/helpers',
         'bootstrap': 'bootstrap',
         'fileSaver': 'bower/FileSaver/FileSaver'
     },
@@ -36,49 +37,11 @@ define([
     'bootstrap',
     'views/HeaderView',
     'views/BodyView',
-    'handlebars'
+    'handlebars',
+    'helpers'
 ],
-function(Marionette, bootstrap, HeaderView, BodyView, Handlebars) {
+function(Marionette, bootstrap, HeaderView, BodyView, Handlebars, helpers) {
     'use strict';
-
-    Handlebars.default.registerHelper("phoneFormat", function(phoneNumber) {
-        phoneNumber = phoneNumber.toString();
-        return "(" + phoneNumber.substr(0,3) + ") " + phoneNumber.substr(3,3) + "-" + phoneNumber.substr(6,4);
-    });
-    Handlebars.default.registerHelper("serviceFormat", function(service) {
-        switch(service) {
-            case 90:
-                return 'Home';
-            case 92:
-                return 'Ground';
-            case 20:
-                return 'Express Saver';
-            case 3:
-                return '2 Day';
-            case 49:
-                return '2 Day AM';
-            case 5:
-                return 'Standard Overnight';
-            case 1:
-                return 'Priority Overnight';
-            case 6:
-                return 'First Overnight';
-        }
-        return service;
-    });
-    Handlebars.default.registerHelper("emailNotFormat", function(notification) {
-        if (notification === 'Y') {
-            return '<span class="glyphicon glyphicon-ok"></span>';
-        } else {
-            return ' ';
-        }
-    });
-    Handlebars.default.registerHelper("costFormat", function(costNum) {
-        return '$' + costNum.toFixed(2);
-    });
-    Handlebars.default.registerHelper("valueFormat", function(valueNum) {
-        return '$' + valueNum.toFixed();
-    });
 
     var app = new Marionette.Application();
 
