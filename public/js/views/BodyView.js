@@ -44,8 +44,10 @@ define([
 
             shipmentsView.on({
                 loadShipment: function(model) {
-                    var route = 'shipments/' + model.attributes.trackingNumber;
+
+                    var route = '//shipments/' + model.attributes.trackingNumber;
                     router.navigate(route);
+
                     shipmentDetailView.setModel(model);
                 },
                 shipmentsLoading: function() {
