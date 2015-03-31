@@ -93,6 +93,20 @@ app.get('/shipments', function(req, res) {
     }
 });
 
+app.get('/shipments/:trackingNo', function(req, res) {
+    'use strict';
+
+    if (req.params.trackingNo) {
+        var trackingNo = req.params.trackingNo;
+
+        Shipment.findOne().where('trackingNumber').equals(trackingNo).exec(function(err, shipment) {
+            if(err) {res.send(err);}
+            res.send(shipment);
+        });
+    }
+
+});
+
 app.post('/updateDB', function(req, res) {
     'use strict';
 

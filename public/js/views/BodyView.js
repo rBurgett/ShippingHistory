@@ -10,9 +10,10 @@ define([
     'views/SearchView',
     'views/ShipmentsView',
     'views/ShipmentDetailView',
-    'views/LoadingView'
+    'views/LoadingView',
+    'router'
 
-], function(Backbone, Marionette, _, $, Handlebars, bodyTemplate, SearchView, ShipmentsView, ShipmentDetailView, LoadingView) {
+], function(Backbone, Marionette, _, $, Handlebars, bodyTemplate, SearchView, ShipmentsView, ShipmentDetailView, LoadingView, Router) {
     'use strict';
 
     var BodyView = Marionette.LayoutView.extend({
@@ -29,6 +30,8 @@ define([
         },
         onRender: function() {
 
+            var router = new Router;
+
             var parent = this;
 
             var loadingView = new LoadingView();
@@ -41,6 +44,8 @@ define([
 
             shipmentsView.on({
                 loadShipment: function(model) {
+                    var route = 'shipments/' + model.attributes.trackingNumber;
+                    router.navigate(route);
                     shipmentDetailView.setModel(model);
                 },
                 shipmentsLoading: function() {
@@ -83,6 +88,29 @@ define([
             var shipmentDetailView = new ShipmentDetailView({
                 model: new ShipmentDetailView.ShipmentModel()
             });
+
+
+
+            router.controller.on({
+                shipment: function(trackingNo) {
+
+                    $.ajax({
+                        url: "shipments/" + trackingNo,
+                        type: "GET"
+                    }).done(function(data) {
+
+                        var model = new Backbone.Model.extend();
+
+                        model.attributes = data;
+
+                        shipmentDetailView.setModel(model);
+                    });
+
+                    console.log('You are at shipment #' + trackingNo + '!');
+                }
+            });
+
+            Backbone.history.start();
 
             this.shipmentDetailRegion.show(shipmentDetailView);
 

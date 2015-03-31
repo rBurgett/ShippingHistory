@@ -45,13 +45,7 @@ define([
 function(Marionette, bootstrap, HeaderView, BodyView, Handlebars, helpers, Router, Backbone) {
     'use strict';
 
-    var router = new Router;
 
-    router.controller.on({
-        shipment: function() {
-            console.log('You are at shipment!');
-        }
-    });
 
     var app = new Marionette.Application();
 
@@ -62,8 +56,6 @@ function(Marionette, bootstrap, HeaderView, BodyView, Handlebars, helpers, Route
     });
 
     app.on('start', function() {
-
-        Backbone.history.start();
 
         var headerView = new HeaderView();
         app.headerRegion.show(headerView);

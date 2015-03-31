@@ -10,15 +10,15 @@ define([
     'use strict';
 
     var RouterController = Marionette.Controller.extend({
-        'Shipment': function() {
-            this.trigger('shipment');
+        'loadShipmentDetail': function(trackingNo) {
+            this.trigger('shipment', trackingNo);
         }
     });
 
     var Router = Marionette.AppRouter.extend({
         controller: new RouterController,
         appRoutes: {
-            'shipment': 'Shipment'
+            'shipments/:tracking_no': 'loadShipmentDetail'
         }
     });
 
