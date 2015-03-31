@@ -88,7 +88,7 @@ define([
             this.$('.modal').show();
 
             var mt =  '-' + (180 + (this.$('.modal-dialog').height())) / 2 + 'px';
-            console.log(mt);
+    //        console.log(mt);
             this.$('.modal-dialog').css('margin-top', mt);
 
             if(this.model.attributes.alert) {

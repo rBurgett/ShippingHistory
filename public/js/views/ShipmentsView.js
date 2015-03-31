@@ -34,7 +34,7 @@ define([
             'change': 'modelChanged'
         },
         modelChanged: function() {
-            console.log('model changed');
+    //        console.log('model changed');
             this.render();
         },
         clicked: function(e) {

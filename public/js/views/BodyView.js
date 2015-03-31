@@ -108,7 +108,7 @@ define([
                         shipmentDetailView.setModel(model);
                     });
 
-                    console.log('You are at shipment #' + trackingNo + '!');
+    //                console.log('You are at shipment #' + trackingNo + '!');
                 }
             });
 
